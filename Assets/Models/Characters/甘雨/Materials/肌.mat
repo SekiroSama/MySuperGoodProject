@@ -559,25 +559,25 @@ Material:
     - _RimShadeNormalStrength: 1
     - _RimShadowMask: 0
     - _RimVRParallaxStrength: 1
-    - _Shadow2ndBlur: 0.05
-    - _Shadow2ndBorder: 0.15
+    - _Shadow2ndBlur: 0.076
+    - _Shadow2ndBorder: 0.193
     - _Shadow2ndNormalStrength: 1
     - _Shadow2ndReceive: 0
     - _Shadow3rdBlur: 0.1
     - _Shadow3rdBorder: 0.25
     - _Shadow3rdNormalStrength: 1
     - _Shadow3rdReceive: 0
-    - _ShadowBlur: 0.005
+    - _ShadowBlur: 0.23
     - _ShadowBlurMaskLOD: 0
-    - _ShadowBorder: 0.1
+    - _ShadowBorder: 0.432
     - _ShadowBorderMaskLOD: 0
     - _ShadowBorderRange: 0
     - _ShadowColorType: 0
     - _ShadowEnvStrength: 0
     - _ShadowFlatBlur: 1
     - _ShadowFlatBorder: 1
-    - _ShadowMainStrength: 0
-    - _ShadowMaskType: 0
+    - _ShadowMainStrength: 0.422
+    - _ShadowMaskType: 2
     - _ShadowNormalStrength: 1
     - _ShadowPostAO: 0
     - _ShadowReceive: 0
@@ -673,8 +673,8 @@ Material:
     - _AudioLinkVertexUVParams: {r: 0.25, g: 0, b: 0, a: 0.125}
     - _BackfaceColor: {r: 0, g: 0, b: 0, a: 0}
     - _BacklightColor: {r: 0.85, g: 0.8, b: 0.7, a: 1}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 1, g: 0.87, b: 0.87, a: 1}
+    - _Color: {r: 1, g: 0.87, b: 0.87, a: 1}
     - _Color2nd: {r: 1, g: 1, b: 1, a: 1}
     - _Color3rd: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveColor: {r: 1, g: 1, b: 1, a: 1}
