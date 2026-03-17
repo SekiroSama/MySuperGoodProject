@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330d117753a947947bf5a4f237b9a9f3, type: 3}
+  m_Name: "Skin-\u8138\u90E8\u7269\u4EF6"
+  m_EditorClassIdentifier: 
+  bases:
+  - language: 
+    name: "\u8138\u90E8\u7269\u4EF6"
+  category: 0
+  renderingMode: 
+  shader: {fileID: 0}
+  colors:
+  - name: _BackfaceColor
+    value: {r: 0, g: 0, b: 0, a: 0}
+  vectors: []
+  floats:
+  - name: _Invisible
+    value: 0
+  - name: _Cutoff
+    value: 0.001
+  - name: _FlipNormal
+    value: 0
+  - name: _BackfaceForceShadow
+    value: 0
+  - name: _AAStrength
+    value: 1
+  - name: _UseDither
+    value: 0
+  - name: _DitherMaxValue
+    value: 255
+  - name: _TransparentMode
+    value: 0
+  - name: _UseClippingCanceller
+    value: 0
+  - name: _AsOverlay
+    value: 0
+  - name: _StencilRef
+    value: 2
+  - name: _StencilReadMask
+    value: 255
+  - name: _StencilWriteMask
+    value: 255
+  - name: _StencilComp
+    value: 8
+  - name: _StencilPass
+    value: 2
+  - name: _StencilFail
+    value: 0
+  - name: _StencilZFail
+    value: 0
+  - name: _OutlineStencilRef
+    value: 0
+  - name: _OutlineStencilReadMask
+    value: 255
+  - name: _OutlineStencilWriteMask
+    value: 255
+  - name: _OutlineStencilComp
+    value: 8
+  - name: _OutlineStencilPass
+    value: 0
+  - name: _OutlineStencilFail
+    value: 0
+  - name: _OutlineStencilZFail
+    value: 0
+  textures: []
+  renderQueue: 2452
+  outline: -1
+  outlineMainTex: 0
+  tessellation: -1

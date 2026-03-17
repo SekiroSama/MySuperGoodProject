@@ -3,7 +3,147 @@ guid: c3d946ab21f407b44b1d2461b3c107e1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bullet Casing
+    second: {fileID: 2100000, guid: 030f905b30a27654dad4f5716d82b179, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cryo tape
+    second: {fileID: 2100000, guid: 621e3915496fdf14b8f469ec0b3bc03d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dendro Tape
+    second: {fileID: 2100000, guid: 192cc1c56a714f84b9ba233f76a55ec2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Electro Tape
+    second: {fileID: 2100000, guid: e2dc7eec2a40cfc48ad542a8bf0f8c20, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HoYoverse - IWS_Primary_
+    second: {fileID: 2100000, guid: 36fa6c756068b184d890f987a6fddb94, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HoYoverse - IWS_Scope
+    second: {fileID: 2100000, guid: fbc1bd274ae90ca45971e582dfc6120d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HoYoverse - IWS_Secondary
+    second: {fileID: 2100000, guid: a43765bd20da3354ab04828c0e964f35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HoYoverse - Tactical Lumine Item.002
+    second: {fileID: 2100000, guid: 3d540b274860b3a41a48363597888fc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hydro Tape
+    second: {fileID: 2100000, guid: db90a4ae34b3f9742baafa250d2d8c71, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: IWS loaded tape
+    second: {fileID: 2100000, guid: 58328e2c45bbec54885684df0b06ad82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: IWS_Secondary
+    second: {fileID: 2100000, guid: cae52c4a5c05a2a418aa079d25db773c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lumine Body
+    second: {fileID: 2100000, guid: 35dfa3e16c84c6f4494d2eaffd181c61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lumine Face
+    second: {fileID: 2100000, guid: 949bbe907861c0d42a59c77d71e48aa2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lumine Hair
+    second: {fileID: 2100000, guid: ea46ec89eb9a73f418abbf6c3ce36bc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lumine Item
+    second: {fileID: 2100000, guid: 2e5d5202e420a6f438c3396c985bb8a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lumine Item 2
+    second: {fileID: 2100000, guid: 1222d30a373807c49add766a0e95b322, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lumine Outfit
+    second: {fileID: 2100000, guid: 26340cec9da0b154884b510ebef238a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lumine Outfits.glasses
+    second: {fileID: 2100000, guid: 4c22a1dd44d5d234f955b0008959f156, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 94f0a3d790c61804bbaaa80c6f46df48, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 2df32d50eb9601d4c9366c0cfdb5f646, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: geo core
+    second: {fileID: 2100000, guid: b9b0ab13b5c5fc04aaeabfe5d4ca450a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gun hole
+    second: {fileID: 2100000, guid: 93a3e8691e08add4b8f9fbb80abe5f7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shield device decal 1
+    second: {fileID: 2100000, guid: 7eaddd7766bcae949bca8b2faca71deb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shield device decal 1.001
+    second: {fileID: 2100000, guid: c61c0ed648049744cbab1be387fc5a5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shield device decal 1.002
+    second: {fileID: 2100000, guid: 9c59075e744f3c34897d9a235a4f9e97, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vp9
+    second: {fileID: 2100000, guid: c21d58ff0caf79a428ab2d20e7ee492a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vp9 mag
+    second: {fileID: 2100000, guid: 3930da6200c66c545a0f24b5fee23ff7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vp9 mag tape
+    second: {fileID: 2100000, guid: 50971e3ad322b724babbd1c486162141, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -24,7 +164,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -93,13 +233,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
