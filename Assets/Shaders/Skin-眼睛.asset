@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330d117753a947947bf5a4f237b9a9f3, type: 3}
+  m_Name: "Skin-\u773C\u775B"
+  m_EditorClassIdentifier: 
+  bases:
+  - language: 
+    name: "\u773C\u775B"
+  category: 0
+  renderingMode: 
+  shader: {fileID: 0}
+  colors:
+  - name: _EmissionColor
+    value: {r: 1, g: 1, b: 1, a: 0.5}
+  vectors:
+  - name: _EmissionMap_ScrollRotate
+    value: {x: 0, y: 0, z: 0, w: 0}
+  - name: _EmissionBlendMask_ScrollRotate
+    value: {x: 0, y: 0, z: 0, w: 0}
+  - name: _EmissionBlink
+    value: {x: 0, y: 0, z: 3.141593, w: 0}
+  floats:
+  - name: _UseEmission
+    value: 1
+  - name: _EmissionMap_UVMode
+    value: 0
+  - name: _EmissionMainStrength
+    value: 1
+  - name: _EmissionBlend
+    value: 1
+  - name: _EmissionBlendMode
+    value: 1
+  - name: _EmissionUseGrad
+    value: 0
+  - name: _EmissionGradSpeed
+    value: 1
+  - name: _EmissionParallaxDepth
+    value: 0
+  - name: _EmissionFluorescence
+    value: 0
+  textures: []
+  renderQueue: -2
+  outline: -1
+  outlineMainTex: 0
+  tessellation: -1

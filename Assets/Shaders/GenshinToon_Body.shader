@@ -4,6 +4,7 @@ Shader "GenshinToon/Body"
     {
         [Header(Textures)]
         _BaseMap("Base Map", 2D) = "white" {}
+        _BaseColor("Base Color", Color) = (1, 1, 1, 1) // 基础颜色
         _LightMap("Light Map", 2D) = "white" {}// 光照贴图
         [Toggle(_USE_lIGHTMAP_AO)] _USE_lIGHTMAP_AO ("USE lIGHTMAP AO", Range(0,1)) = 1 //AO开关
 
@@ -52,6 +53,7 @@ Shader "GenshinToon/Body"
 
                 //Textures
                 sampler2D _BaseMap; // 基础贴图
+                float4 _BaseColor; // 基础颜色
                 sampler2D _LightMap; // 光照贴图
 
                 //Ramp Shadow
@@ -195,9 +197,9 @@ Shader "GenshinToon/Body"
 
                     //Merge Color
                     #if _USE_RAMP_SHADOW
-                        half3 finalColor = baseMap.rgb * rampColor * (isShadowArea ? 1 : 1.2);//采用Ramp阴影时
+                        half3 finalColor = baseMap.rgb * _BaseColor.rgb * rampColor * (isShadowArea ? 1 : 1.2);//采用Ramp阴影时
                     #else
-                        half3 finalColor = baseMap.rgb * halflambert * (shadow + 0.2);//采用lambert阴影
+                        half3 finalColor = baseMap.rgb * _BaseColor.rgb * halflambert * (shadow + 0.2);//采用lambert阴影
                     #endif
 
                     return half4(finalColor.rgb, 1); 

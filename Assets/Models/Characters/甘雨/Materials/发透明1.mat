@@ -761,8 +761,8 @@ Material:
     - _MatCap2ndColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapBlendUV1: {r: 0, g: 0, b: 0, a: 0}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
-    - _OutlineLitColor: {r: 1, g: 0.2805821, b: 0, a: 0.2509804}
+    - _OutlineColor: {r: 0.78867924, g: 0.76040584, b: 0.76040584, a: 1}
+    - _OutlineLitColor: {r: 0, g: 0, b: 0, a: 0.33333334}
     - _OutlineTexHSVG: {r: 0, g: 1, b: 1, a: 2}
     - _OutlineTex_ScrollRotate: {r: 0, g: 0, b: 0, a: 0}
     - _PreColor: {r: 1, g: 1, b: 1, a: 1}

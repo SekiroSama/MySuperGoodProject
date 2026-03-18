@@ -4,6 +4,7 @@ Shader "GenshinToon/Face"
     {
         [Header(Textures)]
         _BaseMap("Base Map", 2D) = "white" {}
+        _BaseColor("Base Color", Color) = (1, 1, 1, 1) // 基础颜色
 
         [Header(Shadow Options)]
         [Toggle (_USE_SDF_SHADOW)] _UseSDFShadow("Use SDF Shadow", Range(0,1)) = 1 // 使用SDF阴影开关
@@ -51,6 +52,7 @@ Shader "GenshinToon/Face"
 
                 //textures
                 sampler2D _BaseMap; // 基础贴图
+                float4 _BaseColor; // 基础颜色
 
                 // Shadow Options
                 sampler2D _SDF; // 距离场纹理
@@ -154,9 +156,9 @@ Shader "GenshinToon/Face"
 
                     //Merge Color
                     #if _USE_SDF_SHADOW
-                        half3 finalColor = lerp(_ShadowColor.rgb * baseColor.rgb, baseColor.rgb, sdf); // 合并颜色
+                        half3 finalColor = lerp(_ShadowColor.rgb * baseColor.rgb *_BaseColor.rgb, baseColor.rgb * _BaseColor.rgb, sdf); // 合并颜色
                     #else
-                        half3 finalColor = baseColor.rgb * halfLambert;
+                        half3 finalColor = baseColor.rgb * halfLambert * _BaseColor.rgb; // 使用Lambert模型计算颜色
                     #endif
 
                     finalColor = lerp(finalColor, finalColor * _FaceBlushColor.rgb , blushStrength); // 混合腮红

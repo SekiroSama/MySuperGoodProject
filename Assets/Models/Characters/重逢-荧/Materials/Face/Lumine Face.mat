@@ -118,7 +118,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FaceBlushStrength: 0.21
+    - _FaceBlushStrength: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -140,12 +140,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.87, g: 0.87, b: 0.87, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _FaceBlushColor: {r: 1, g: 0, b: 0, a: 1}
-    - _HeadForward: {r: 0, g: 0.00000034493428, b: -1, a: 0}
-    - _HeadRight: {r: 1, g: 0, b: 0, a: 0}
+    - _FaceBlushColor: {r: 1, g: 0.87, b: 0.87, a: 1}
+    - _HeadForward: {r: -0.99619466, g: 0.00000034493416, b: -0.08715586, a: 0}
+    - _HeadRight: {r: 0.08715586, g: 0, b: -0.99619466, a: 0}
     - _HeadUp: {r: 0, g: 1, b: 0, a: 0}
     - _ShadowColor: {r: 1, g: 0.87, b: 0.87, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
