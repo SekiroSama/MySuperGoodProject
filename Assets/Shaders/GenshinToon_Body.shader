@@ -21,86 +21,100 @@ Shader "GenshinToon/Body"
 
         [Header(Lighting Options)]
         _DayOrNight ("Day Or Night", Range(0,1)) = 0//日夜切换参数
+
+        [Header(Outline)]
+        _OutLineColor("Outline Color", Color) = (0, 0, 0, 1) // 轮廓线颜色
+        _OutLineWidth("Outline Width", Range(0, 0.001)) = 0.001 // 轮廓线宽度
+        _OutLineMaxDist("Outline Max Distance", Range(0.1, 20)) = 5 // 轮廓线最大距离
+        _OutLineDistPower("Outline DistPower", Range(0.1, 10)) = 0.5 // 轮廓线强度系数
+        
     }
+
     SubShader
     {
-       Tags
-       {
+        Tags
+        {
             "RenderPipeline"="UniversalRenderPipeline" //指定渲染管线为URP
             "RenderType"="Opaque"
-       }
+        }
+        
+        HLSLINCLUDE
+                #pragma multi_compile _MAIN_LIGHT_SHADOWS // 主光源阴影
+                #pragma multi_compile _MAIN_LIGHT_SHADOWS_CASCADE // 主光源阴影级联
+                #pragma multi_compile _MAIN_LIGHT_SHADOWS_SCREEN // 主光源阴影屏幕空间
+
+                #pragma multi_compile_fragment _LIGHT_LAYERS // 光照层
+                #pragma multi_compile_fragment _LIGHT_COOKIES // 光照饼干
+                #pragma multi_compile_fragment _SCREEN_SPACE_OCCLUSION // 屏幕空间遮挡
+                #pragma multi_compile_fragment _ADDITIONAL_LIGHT_SHADOWS // 额外光源阴影
+                #pragma multi_compile_fragment _SHADOWS_SOFT // 阴影软化
+                #pragma multi_compile_fragment _REFLECTION_PROBE_BLENDING // 反射探针混合
+                #pragma multi_compile_fragment _REFLECTION_PROBE_BOX_PROJECTION // 反射探针盒投影
+
+                #pragma shader_feature_local _USE_lIGHTMAP_AO // AO开关
+                #pragma shader_feature_local _USE_RAMP_SHADOW // Shadow开关
+
+                #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl" // 核心库
+                #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl" // 光照库
+
+                CBUFFER_START(UnityPerMaterial) //常量缓冲区
+
+                    //Textures
+                    sampler2D _BaseMap; // 基础贴图
+                    float4 _BaseColor; // 基础颜色
+                    sampler2D _LightMap; // 光照贴图
+
+                    //Ramp Shadow
+                    sampler2D _RampTex; // Ramp贴图
+                    float _ShadowRampWidth; // 阴影边缘宽度
+                    float _ShadowPosition; // 阴影位置
+                    float _ShadowSoftness; // 阴影柔和度
+                    float _USERAMPSHADOW2; // 使用第2行的RAMP阴影开关
+                    float _USERAMPSHADOW3; // 使用第3行的RAMP阴影开关
+                    float _USERAMPSHADOW4; // 使用第4行的RAMP阴影开关
+                    float _USERAMPSHADOW5; // 使用第5行的RAMP阴影开关
+
+                    //Lighting Options
+                    float _DayOrNight; //日夜切换参数
+
+                    //Outline
+                    float4 _OutLineColor; // 轮廓线颜色
+                    float _OutLineWidth; // 轮廓线宽度
+                    float _OutLineMaxDist; // 轮廓线最大距离
+                    float _OutLineDistPower; // 轮廓线强度系数
+                    
+                CBUFFER_END //常量缓冲区结束
+
+                // 官方版本的RampShadowID函数
+                float RampShadowID(float input, float useShadow2, float useShadow3, float useShadow4, float useShadow5, 
+                    float shadowValue1, float shadowValue2, float shadowValue3, float shadowValue4, float shadowValue5)
+                {
+                    // 根据input值将模型分为5个区域
+                    float v1 = step(0.6, input) * step(input, 0.8); // 0.6-0.8区域
+                    float v2 = step(0.4, input) * step(input, 0.6); // 0.4-0.6区域
+                    float v3 = step(0.2, input) * step(input, 0.4); // 0.2-0.4区域
+                    float v4 = step(input, 0.2);                    // 0-0.2区域
+
+                    // 根据开关控制是否使用不同材质的值
+                    float blend12 = lerp(shadowValue1, shadowValue2, useShadow2);
+                    float blend15 = lerp(shadowValue1, shadowValue5, useShadow5);
+                    float blend13 = lerp(shadowValue1, shadowValue3, useShadow3);
+                    float blend14 = lerp(shadowValue1, shadowValue4, useShadow4);
+
+                    // 根据区域选择对应的材质值
+                    float result = blend12;                // 默认使用材质1或2
+                    result = lerp(result, blend15, v1);    // 0.6-0.8区域使用材质5
+                    result = lerp(result, blend13, v2);    // 0.4-0.6区域使用材质3
+                    result = lerp(result, blend14, v3);    // 0.2-0.4区域使用材质4
+                    result = lerp(result, shadowValue1, v4); // 0-0.2区域使用材质1
+
+                    return result;
+                }
+
+        ENDHLSL // 公共代码块结束
        
-       HLSLINCLUDE
-            #pragma multi_compile _MAIN_LIGHT_SHADOWS // 主光源阴影
-            #pragma multi_compile _MAIN_LIGHT_SHADOWS_CASCADE // 主光源阴影级联
-            #pragma multi_compile _MAIN_LIGHT_SHADOWS_SCREEN // 主光源阴影屏幕空间
-
-            #pragma multi_compile_fragment _LIGHT_LAYERS // 光照层
-            #pragma multi_compile_fragment _LIGHT_COOKIES // 光照饼干
-            #pragma multi_compile_fragment _SCREEN_SPACE_OCCLUSION // 屏幕空间遮挡
-            #pragma multi_compile_fragment _ADDITIONAL_LIGHT_SHADOWS // 额外光源阴影
-            #pragma multi_compile_fragment _SHADOWS_SOFT // 阴影软化
-            #pragma multi_compile_fragment _REFLECTION_PROBE_BLENDING // 反射探针混合
-            #pragma multi_compile_fragment _REFLECTION_PROBE_BOX_PROJECTION // 反射探针盒投影
-
-            #pragma shader_feature_local _USE_lIGHTMAP_AO // AO开关
-            #pragma shader_feature_local _USE_RAMP_SHADOW // Shadow开关
-
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl" // 核心库
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl" // 光照库
-
-            CBUFFER_START(UnityPerMaterial) //常量缓冲区
-
-                //Textures
-                sampler2D _BaseMap; // 基础贴图
-                float4 _BaseColor; // 基础颜色
-                sampler2D _LightMap; // 光照贴图
-
-                //Ramp Shadow
-                sampler2D _RampTex; // Ramp贴图
-                float _ShadowRampWidth; // 阴影边缘宽度
-                float _ShadowPosition; // 阴影位置
-                float _ShadowSoftness; // 阴影柔和度
-                float _USERAMPSHADOW2; // 使用第2行的RAMP阴影开关
-                float _USERAMPSHADOW3; // 使用第3行的RAMP阴影开关
-                float _USERAMPSHADOW4; // 使用第4行的RAMP阴影开关
-                float _USERAMPSHADOW5; // 使用第5行的RAMP阴影开关
-
-                //Lighting Options
-                float _DayOrNight; //日夜切换参数
-                
-            CBUFFER_END //常量缓冲区结束
-
-            // 官方版本的RampShadowID函数
-            float RampShadowID(float input, float useShadow2, float useShadow3, float useShadow4, float useShadow5, 
-                float shadowValue1, float shadowValue2, float shadowValue3, float shadowValue4, float shadowValue5)
-            {
-                // 根据input值将模型分为5个区域
-                float v1 = step(0.6, input) * step(input, 0.8); // 0.6-0.8区域
-                float v2 = step(0.4, input) * step(input, 0.6); // 0.4-0.6区域
-                float v3 = step(0.2, input) * step(input, 0.4); // 0.2-0.4区域
-                float v4 = step(input, 0.2);                    // 0-0.2区域
-
-                // 根据开关控制是否使用不同材质的值
-                float blend12 = lerp(shadowValue1, shadowValue2, useShadow2);
-                float blend15 = lerp(shadowValue1, shadowValue5, useShadow5);
-                float blend13 = lerp(shadowValue1, shadowValue3, useShadow3);
-                float blend14 = lerp(shadowValue1, shadowValue4, useShadow4);
-
-                // 根据区域选择对应的材质值
-                float result = blend12;                // 默认使用材质1或2
-                result = lerp(result, blend15, v1);    // 0.6-0.8区域使用材质5
-                result = lerp(result, blend13, v2);    // 0.4-0.6区域使用材质3
-                result = lerp(result, blend14, v3);    // 0.2-0.4区域使用材质4
-                result = lerp(result, shadowValue1, v4); // 0-0.2区域使用材质1
-
-                return result;
-            }
-
-       ENDHLSL // 公共代码块结束
-       
-       Pass
-       {
+        Pass
+        {
             Name "UniversalForward"
             Tags
             {
@@ -207,10 +221,68 @@ Shader "GenshinToon/Body"
                 }
 
             ENDHLSL
-       }
+        }
 
-              Pass//阴影投射Pass
-       {
+        Pass
+        {
+            Name "OutLine"
+            Tags
+            {
+                "LightMode" = "SRPDefaultUnlit" // 使用SRP默认的非光照模式，确保轮廓线不受光照影响
+                "Queue" = "Geometry+1" // 将轮廓线渲染在几何体之后，确保轮廓线覆盖在模型上
+            }
+
+            ZWrite On // 开启深度写入，确保轮廓线正确遮挡
+            ZTest LEqual // 深度测试: 小于等于，确保轮廓线正确遮挡
+            Cull Front // 剔除前面，渲染背面以实现轮
+
+            HLSLPROGRAM
+
+                #pragma vertex OutLineVertexShader
+                #pragma fragment OutLineFragmentShader
+
+                struct Attributes
+                {
+                    float4 positionOS : POSITION;
+                    float3 normalOS : NORMAL;
+                };
+
+                struct Varyings
+                {
+                    float4 positionCS : SV_POSITION;
+                    float3 normalWS : TEXCOORD0;
+                };
+
+                Varyings OutLineVertexShader(Attributes input)
+                {
+                    Varyings output;
+                    
+                    // 获取顶点位置和法线
+                    float3 positionWS = TransformObjectToWorld(input.positionOS.xyz); // 将本地空间顶点坐标转换为世界空间顶点坐标
+                    float dist = distance(positionWS, GetCameraPositionWS()); 
+                    float outLineStrength = _OutLineDistPower * min(dist, _OutLineMaxDist); // 根据距离计算轮廓线强度
+
+                    input.positionOS.xyz = input.positionOS.xyz + float4(input.normalOS * _OutLineWidth * outLineStrength, 0); // 根据法线方向和轮廓线宽度偏移顶点位置
+
+                    VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
+
+                    output.positionCS = vertexInput.positionCS;
+                    VertexNormalInputs vertexNormalInputs = GetVertexNormalInputs(input.normalOS);
+                    output.normalWS = vertexNormalInputs.normalWS;
+
+                    return output;
+                }
+
+                half4 OutLineFragmentShader(Varyings input) : SV_TARGET
+                {
+                    return _OutLineColor; // 输出轮廓线颜色
+                }
+                
+            ENDHLSL
+        }
+
+        Pass//阴影投射Pass
+        {
             Name "ShadowCaster"
             Tags
             {
@@ -286,6 +358,6 @@ Shader "GenshinToon/Body"
                 }
 
             ENDHLSL
-       }
+        }
     }
 }

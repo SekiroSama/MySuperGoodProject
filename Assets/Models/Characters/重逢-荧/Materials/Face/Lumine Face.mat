@@ -144,8 +144,8 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _FaceBlushColor: {r: 1, g: 0.87, b: 0.87, a: 1}
-    - _HeadForward: {r: -0.99619466, g: 0.00000034493416, b: -0.08715586, a: 0}
-    - _HeadRight: {r: 0.08715586, g: 0, b: -0.99619466, a: 0}
+    - _HeadForward: {r: -0.99619466, g: 0.00000066227364, b: -0.08715587, a: 0}
+    - _HeadRight: {r: 0.08715598, g: 0, b: -0.9961947, a: 0}
     - _HeadUp: {r: 0, g: 1, b: 0, a: 0}
     - _ShadowColor: {r: 1, g: 0.87, b: 0.87, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
