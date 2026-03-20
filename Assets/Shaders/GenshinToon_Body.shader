@@ -140,6 +140,7 @@ Shader "GenshinToon/Body"
                     float2 uv : TEXCOORD0;
                     float3 normalWS : TEXCOORD1;
                     float4 color : TEXCOORD2; // 顶点颜色
+                    // float4 shadowCoord : TEXCOORD3; // 阴影坐标
                 };
 
                 Varyings MainVertexShader(Attributes input)
@@ -152,7 +153,8 @@ Shader "GenshinToon/Body"
                     output.uv = input.uv0; 
                     VertexNormalInputs vertexNormalInputs = GetVertexNormalInputs(input.normalOS);
                     output.normalWS = vertexNormalInputs.normalWS;
-
+                    // output.shadowCoord = TransformWorldToShadowCoord(vertexInput.positionWS);// 获取阴影坐标
+                    
                     //color
                     output.color = input.color; // 将顶点颜色传递到片段着色器
 
@@ -199,6 +201,7 @@ Shader "GenshinToon/Body"
                     half rampWidthFactor = vertexColor.g * 2 * _ShadowRampWidth;//根据顶点颜色G通道调整阴影边缘宽度
                     // half shadowPosition = (_ShadowPosition - shadowFactor) / _ShadowPosition;//带入阴影因子计算阴影位置
 
+
                     //Ramp
                     half rampU = 1 - saturate(shadowDepth / rampWidthFactor); // 计算Ramp采样的横坐标
                     half rampID = RampShadowID(lightMap.a, _USERAMPSHADOW2, _USERAMPSHADOW3, _USERAMPSHADOW4, _USERAMPSHADOW5, 1, 2, 3, 4, 5); // 根据光照贴图的Alpha通道选择Ramp采样的ID
@@ -209,6 +212,10 @@ Shader "GenshinToon/Body"
                     half3 rampNightColor = tex2D(_RampTex, rampNightUV).rgb; // 从Ramp贴图采样颜色
                     half3 rampColor = lerp(rampNightColor, rampDayColor, _DayOrNight); // 根据日夜参数混合Ramp颜色
 
+                    // half realtimeShadow = MainLightRealtimeShadow(input.shadowCoord);
+                    // realtimeShadow = step(0, realtimeShadow); 
+                    // half shadowEffect = min(isShadowArea ? 0 : 1, realtimeShadow);
+
                     //Merge Color
                     #if _USE_RAMP_SHADOW
                         half3 finalColor = baseMap.rgb * _BaseColor.rgb * rampColor * (isShadowArea ? 1 : 1.2);//采用Ramp阴影时
@@ -217,7 +224,6 @@ Shader "GenshinToon/Body"
                     #endif
 
                     return half4(finalColor.rgb, 1); 
-                    // return half4(vertexColor.ggg, 1);
                 }
 
             ENDHLSL
