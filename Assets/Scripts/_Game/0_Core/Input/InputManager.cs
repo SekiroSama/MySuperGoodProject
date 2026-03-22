@@ -5,51 +5,38 @@ using UnityEngine;
 
 public class InputManager : SingletonAutoMono<InputManager>
 {
+
     public struct PlayerInputData
     {
         public Vector2 MoveVector;
-        public bool isJump;
-        public bool IsRun;
-        public bool IsAttack;
-        public bool isMoveing;
-        public bool isDodge;
-        public bool isDefense;
+        public bool IsRunning;
     }
 
     PlayerInputData _playerInputData;
     public PlayerInputData CurrentInput => _playerInputData;
 
-
+    [HideInInspector]
     public bool isReadIngPlayerInput = true;
 
-    //接收ui按钮输入atk
-    public bool uibtnAttackPressed = false;
 
-    private float sensitivity = 1f;
-
-    public void OnAwake()
+    public void Awake()
     {
         _playerInputData = new PlayerInputData();
-        sensitivity = 1080f / Screen.width;
     }
 
-    public void OnStart()
+    public void Start()
     {
-#if UNITY_ANDROID && !UNITY_EDITOR
-
-#else
         //Cursor.lockState = CursorLockMode.Locked;//CursorLockMode影响鼠标运动逻辑，Locked大概率会隐藏但在某些环境不行
         //Cursor.visible = false;//确保隐藏
-#endif
     }
 
-    public void OnUpdate()
+    public void Update()
     {
-        CheckAndSetCursorEnable();
+        // CheckAndSetCursorEnable();
 
         if (isReadIngPlayerInput)
         {
-            UpdateMovementInput();
+            UpdateInput();
         }
     }
 
@@ -77,18 +64,36 @@ public class InputManager : SingletonAutoMono<InputManager>
             isReadIngPlayerInput = true;
         }
     }
+
     /// <summary>
-    /// 更新移动输入
+    /// 更新移动输入方向向量和是否接收到输入
     /// </summary>
-    private void UpdateMovementInput()
+    private void UpdateInput()
     {
-        _playerInputData.MoveVector.x = Input.GetAxis("Horizontal");
-        _playerInputData.MoveVector.y = Input.GetAxis("Vertical");
-        _playerInputData.isMoveing = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
-        if (_playerInputData.MoveVector.sqrMagnitude > 1f)
+        _playerInputData.MoveVector= GetCameraRelativeDir(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+        
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            _playerInputData.MoveVector.Normalize();
+            _playerInputData.IsRunning = !_playerInputData.IsRunning;
         }
+    }
+
+    /// <summary>
+    /// 计算相机相对方向的移动向量
+    /// </summary>
+    /// <param name="input">输入方向</param>
+    /// <returns></returns>
+    private Vector2 GetCameraRelativeDir(Vector2 input)
+    {
+        if (input.sqrMagnitude <= 0.01) return Vector2.zero;
+
+        Vector3 camForward = Camera.main.transform.forward;
+        Vector3 camRight = Camera.main.transform.right;
+        camForward.y = 0; camRight.y = 0;
+        camForward.Normalize(); camRight.Normalize();
+
+        Vector3 moveDir = camRight * input.x + camForward * input.y;
+        return new Vector2(moveDir.normalized.x, moveDir.normalized.z);
     }
 
     /// <summary>
@@ -97,6 +102,6 @@ public class InputManager : SingletonAutoMono<InputManager>
     private void ResetInputData()
     {
         _playerInputData.MoveVector = Vector2.zero;
-        _playerInputData.IsAttack = false;
+        _playerInputData.IsRunning = false;
     }
 }

@@ -17,13 +17,18 @@ public class CameraManager : SingletonAutoMono<CameraManager>
         this.FX_RadialBlur_FullScreen_Material = FX_RadialBlur_FullScreen_Material;
     }
 
+    void Awake()
+    {
+        camFreeLook = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
+        camCollider = camFreeLook.GetComponent<CinemachineCollider>();
+    }
 
-    public void OnStart()
+    public void Start()
     {
         
     }
 
-    public void OnUpdate()
+    public void Update()
     {
         
     }
