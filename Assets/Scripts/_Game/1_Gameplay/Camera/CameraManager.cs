@@ -9,6 +9,7 @@ public class CameraManager : SingletonAutoMono<CameraManager>
     public CinemachineCollider camCollider;
     private Material FX_RadialBlur_FullScreen_Material;//径向模糊材质球
 
+    private bool isLockingOn = false;//是否锁定
 
     public void Init(CinemachineCollider camCollider, CinemachineFreeLook camFreeLook, Material FX_RadialBlur_FullScreen_Material)
     {
@@ -31,6 +32,20 @@ public class CameraManager : SingletonAutoMono<CameraManager>
     public void Update()
     {
         
+    }
+
+    public void LockOrUnlock()
+    {
+        if(isLockingOn) {
+            camFreeLook.m_XAxis.m_MaxSpeed = 300f;
+            isLockingOn = false;
+        }
+        else
+        {
+            LevelManager.Instance.TargetGroup.AddMember(LevelManager.Instance.BossLookPos.transform, 1f, 0.5f);
+            camFreeLook.m_XAxis.m_MaxSpeed = 0f;
+            isLockingOn = true;
+        }
     }
 
     int lastTimerId = -1;

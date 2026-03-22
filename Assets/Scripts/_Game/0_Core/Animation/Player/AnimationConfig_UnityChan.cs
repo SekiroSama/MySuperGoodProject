@@ -9,13 +9,14 @@ public class AnimationConfig_UnityChan
     /// </summary>
     public static class Parameters
     {
-        public static readonly int XSpeed = Animator.StringToHash("horizontal");
+        public static readonly int Horizontal = Animator.StringToHash("horizontal");
 
-        public static readonly int ZSpeed = Animator.StringToHash("vertical");
+        public static readonly int Vertical = Animator.StringToHash("vertical");
     }
 
     public static class StateHashes
     {
+        public static readonly int Movement_Lock = Animator.StringToHash("Movement");
         
     }
 
@@ -31,7 +32,7 @@ public class AnimationConfig_UnityChan
 
     public static readonly Dictionary<System.Type, int[]> StateToParameters = new Dictionary<System.Type, int[]>
     {
-        { typeof(PlayerMovementState), new int[] { Parameters.ZSpeed } },
+        { typeof(PlayerMovementState), new int[] { Parameters.Vertical } },
     };
 
     public static class TransitionSettings

@@ -8,8 +8,10 @@ public class InputManager : SingletonAutoMono<InputManager>
 
     public struct PlayerInputData
     {
-        public Vector2 MoveVector;
+        public Vector2 InputVector;
+        public Vector2 InputVectorToCamera;
         public bool IsRunning;
+        public bool IsLockingOn;
     }
 
     PlayerInputData _playerInputData;
@@ -66,16 +68,23 @@ public class InputManager : SingletonAutoMono<InputManager>
     }
 
     /// <summary>
-    /// 更新移动输入方向向量和是否接收到输入
+    /// 更新输入
     /// </summary>
     private void UpdateInput()
     {
-        _playerInputData.MoveVector= GetCameraRelativeDir(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+        _playerInputData.InputVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        _playerInputData.InputVectorToCamera= GetCameraRelativeDir(_playerInputData.InputVector);
         
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))//按下Shift 键切换跑步状态
         {
             _playerInputData.IsRunning = !_playerInputData.IsRunning;
         }
+        if(Input.GetMouseButtonDown(2))//按下鼠标中键 锁定/解锁目标
+        {
+            _playerInputData.IsLockingOn = !_playerInputData.IsLockingOn;
+            // CameraManager.Instance.LockOrUnlock();
+        }
+
     }
 
     /// <summary>
@@ -101,7 +110,7 @@ public class InputManager : SingletonAutoMono<InputManager>
     /// </summary>
     private void ResetInputData()
     {
-        _playerInputData.MoveVector = Vector2.zero;
+        _playerInputData.InputVectorToCamera = Vector2.zero;
         _playerInputData.IsRunning = false;
     }
 }
