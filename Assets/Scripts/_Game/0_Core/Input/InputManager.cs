@@ -12,6 +12,7 @@ public class InputManager : SingletonAutoMono<InputManager>
         public Vector2 InputVectorToCamera;
         public bool IsRunning;
         public bool IsLockingOn;
+        public bool IsCasting;
     }
 
     PlayerInputData _playerInputData;
@@ -82,9 +83,16 @@ public class InputManager : SingletonAutoMono<InputManager>
         if(Input.GetMouseButtonDown(2))//按下鼠标中键 锁定/解锁目标
         {
             _playerInputData.IsLockingOn = !_playerInputData.IsLockingOn;
-            // CameraManager.Instance.LockOrUnlock();
+            CameraManager.Instance.LockOrUnlock();
         }
-
+        if (Input.GetMouseButtonDown(0))//按下鼠标左键 开始吟唱魔法
+        {
+            _playerInputData.IsCasting = true;
+        }
+        if (Input.GetMouseButtonUp(0))//松开鼠标左键 结束吟唱魔法
+        {
+            _playerInputData.IsCasting = false;
+        }
     }
 
     /// <summary>

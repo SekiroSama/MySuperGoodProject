@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
-using static AnimationConfig_UnityChan;
+using static AnimationConfig_Player;
 
 public class PlayerMovementState : StateBase
 {
@@ -11,6 +11,8 @@ public class PlayerMovementState : StateBase
     private Tweener rotateTweenHorizontal;//旋转tween
     private float target;//tween目标值
     private float target2;//tween目标值
+    private Tweener tweener_SetLayerWeight;//层权重tween
+    private bool isMagicCasting = false;
 
     public override void OnEnter()
     {
@@ -19,7 +21,26 @@ public class PlayerMovementState : StateBase
 
     public override void OnUpdate()
     {
-        base.OnUpdate();
+        if(InputManager.Instance.CurrentInput.IsCasting) //如果正在施法 就切换到施法状态
+        {
+            tweener_SetLayerWeight?.Kill();
+            tweener_SetLayerWeight = DOTween.To(() => owner.animator.GetLayerWeight(1), 
+                                        x => owner.animator.SetLayerWeight(1, x), 
+                                        0.9f, 0.2f);
+            isMagicCasting = true;
+        }
+        else if(isMagicCasting) //施法结束，进入释放
+        {
+            // tweener_SetLayerWeight?.Kill();
+            // tweener_SetLayerWeight = DOTween.To(() => owner.animator.GetLayerWeight(1), 
+            //                             x => owner.animator.SetLayerWeight(1, x), 
+            //                             0f, 0.2f);
+            owner.stateMachine.ChangeState<PlayerMagicReleaseState>();
+            isMagicCasting = false;
+            return;
+        }
+
+        #region 移动逻辑
         Vector2 inputVectorToCamera = InputManager.Instance.CurrentInput.InputVectorToCamera;
         Vector2 inputVector = InputManager.Instance.CurrentInput.InputVector;
 
@@ -93,6 +114,7 @@ public class PlayerMovementState : StateBase
                                 target, 0.2f);
                 }
             }
+            #endregion
         }
     }
 }

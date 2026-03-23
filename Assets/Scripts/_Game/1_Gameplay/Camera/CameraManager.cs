@@ -6,21 +6,22 @@ using UnityEngine;
 public class CameraManager : SingletonAutoMono<CameraManager>
 {
     public CinemachineFreeLook camFreeLook;
+    public CinemachineVirtualCamera Lock_VirtualCamera;
     public CinemachineCollider camCollider;
     private Material FX_RadialBlur_FullScreen_Material;//径向模糊材质球
 
-    private bool isLockingOn = false;//是否锁定
+    private bool isLockingOnTriggered = false;//是否锁定
 
     public void Init(CinemachineCollider camCollider, CinemachineFreeLook camFreeLook, Material FX_RadialBlur_FullScreen_Material)
     {
         this.camCollider = camCollider;
-        this.camFreeLook = camFreeLook;
         this.FX_RadialBlur_FullScreen_Material = FX_RadialBlur_FullScreen_Material;
     }
 
     void Awake()
     {
         camFreeLook = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
+        Lock_VirtualCamera = GameObject.Find("Lock Virtual Camera").GetComponent<CinemachineVirtualCamera>();
         camCollider = camFreeLook.GetComponent<CinemachineCollider>();
     }
 
@@ -36,15 +37,14 @@ public class CameraManager : SingletonAutoMono<CameraManager>
 
     public void LockOrUnlock()
     {
-        if(isLockingOn) {
-            camFreeLook.m_XAxis.m_MaxSpeed = 300f;
-            isLockingOn = false;
+        if(isLockingOnTriggered) { //锁定了则解锁
+            Lock_VirtualCamera.Priority = 9;//切换到自由摄像机
+            isLockingOnTriggered = false;
         }
-        else
+        else // 没锁定则锁定
         {
-            LevelManager.Instance.TargetGroup.AddMember(LevelManager.Instance.BossLookPos.transform, 1f, 0.5f);
-            camFreeLook.m_XAxis.m_MaxSpeed = 0f;
-            isLockingOn = true;
+            Lock_VirtualCamera.Priority = 11;//切换到锁定摄像机
+            isLockingOnTriggered = true;
         }
     }
 

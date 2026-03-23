@@ -6,7 +6,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    CharacterController CC;
+    // [Header("")]
+
+    [HideInInspector]
+    public CharacterController CC;
     [HideInInspector]
     public StateMachine stateMachine;
 
@@ -41,15 +44,6 @@ public class PlayerController : MonoBehaviour
     private void HandGravity()
     {
         CC.Move(Physics.gravity * Time.deltaTime);
-    }
-
-    /// <summary>
-    /// 让角色旋转移动
-    /// </summary>
-    /// <param name="input">输入方向</param>
-    public void Move(Vector2 input)
-    {
-
     }
 
     /// <summary>

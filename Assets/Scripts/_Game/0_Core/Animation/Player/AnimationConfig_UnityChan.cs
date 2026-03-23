@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationConfig_UnityChan
+public class AnimationConfig_Player
 {
     /// <summary>
     /// 动画参数的HashID
@@ -16,7 +16,8 @@ public class AnimationConfig_UnityChan
 
     public static class StateHashes
     {
-        public static readonly int Movement_Lock = Animator.StringToHash("Movement");
+        public static readonly int Movement = Animator.StringToHash("Movement");
+        public static readonly int Magic_start = Animator.StringToHash("Magic_start");
         
     }
 
