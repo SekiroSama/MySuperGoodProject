@@ -13,7 +13,7 @@ public class PlayerMagicReleaseState : StateBase
     public override void OnEnter()
     {
         base.OnEnter();
-        //释放给自身一个向后推力
+        //释放给自身一个向后推力 之后在So中读取
         float pushPower = 10f;
         tweener_PushPower?.Kill();
         tweener_PushPower = DOTween.To(() => pushPower, x => pushPower = x, 0f, 0.5f)
