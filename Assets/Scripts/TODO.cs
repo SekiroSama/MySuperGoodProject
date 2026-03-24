@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class TODO : MonoBehaviour
 {
-    //实现SO
+    //先做出法阵预制体
 }
